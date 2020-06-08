@@ -1,0 +1,79 @@
+<h1>Article Add</h1>
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup">
+  <fieldset>
+    <div class="form-group"
+         [ngClass]="{'has-error':(formGroup.get('name').touched || formGroup.get('name').dirty) && !formGroup.get('name').valid }">
+      <label class="col-md-2 control-label" for="nameId">Name:</label>
+      <div class="col-md-8">
+        <input class="form-control"
+               id="name"
+               type="text"
+               required
+               minlength="5"
+               formControlName="name"
+               pattern="^[A-Za-z ]+$" />
+        <span class="help-block"
+              *ngIf="(formGroup.get('name').touched
+                || formGroup.get('name').dirty) && formGroup.get('name').errors">
+          <span *ngIf="formGroup.get('name').errors.required">Required field 'Name'</span>
+          <span *ngIf="formGroup.get('name').errors.minlength">
+            Articles must be at least {{formGroup.get('name').errors.minlength.requiredLength}} characterers
+          </span>
+          <span *ngIf="formGroup.get('name').errors.pattern">
+            Articles names can only contain letters and spaces
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('category').touched || formGroup.get('category').dirty) && !formGroup.get('category').valid }">
+      <label class="col-md-2 control-label" for="category">Category:</label>
+      <div class="col-md-4">
+        <input class="form-control"
+               id="category"
+               type="text"
+               required
+               pattern="^[A-Za-z ]+$"
+               formControlName="category" />
+        <span class="help-block" *ngIf="(formGroup.get('category').touched || formGroup.get('category').dirty) && formGroup.get('category').errors">
+          <span *ngIf="formGroup.get('category').errors.required">Required field 'Category'</span>
+          <span *ngIf="formGroup.get('category').errors.pattern">
+            Categories names can only contain letters and spaces
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group"
+         [ngClass]="{'has-error':(formGroup.get('price').touched || formGroup.get('price').dirty) && !formGroup.get('price').valid }">
+      <label class="col-md-2 control-label" for="price">Price</label>
+      <div class="col-md-4">
+        <input class="form-control"
+               id="price"
+               type="number"
+               required
+               formControlName="price" />
+        <span class="help-block" *ngIf="(formGroup.get('price').touched || formGroup.get('price').dirty) && formGroup.get('price').errors">
+          <span *ngIf="formGroup.get('price').errors.required">Required field 'Price'</span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Save
+          </button>
+        </span>
+        <span>
+          <button class="btn btn-secondary"
+                  [routerLink]='["/article"]'>
+            Cancel
+          </button>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>
